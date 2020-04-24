@@ -7,6 +7,7 @@ import styles from './App.module.scss';
 const App = () => {
 
     const [covidData, setCovidData] = useState([]);
+    
     useEffect(() => {
         const fetchData = async () => setCovidData(await fetchCovidData());
         fetchData();
