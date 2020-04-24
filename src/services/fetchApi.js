@@ -5,12 +5,12 @@ export const fetchCovidData = async () => {
         const response = await fetch(MATHDRO_URL);
         const data = await response.json();
         const modifiedData = {
-            fullData: data,
-            confirmed: data.confirmed.value,
-            recovered: data.recovered.value,
-            deaths: data.deaths.value,
-            lastUpdate: data.lastUpdate,
-        }
+            total : [
+                {titleEn: 'confirmed', titleRu: 'Инфицировано', value: data.confirmed.value, lastUpdate: data.lastUpdate},
+                {titleEn: 'recovered', titleRu: 'Выздоровевших', value: data.recovered.value, lastUpdate: data.lastUpdate},
+                {titleEn: 'deaths', titleRu: 'Умерших', value: data.deaths.value, lastUpdate: data.lastUpdate},
+            ],
+        };
         return modifiedData;
     } catch (error) {
         console.log(error);
