@@ -1,0 +1,1 @@
+export const MATHDRO_URL = 'https://covid19.mathdro.id/api';
