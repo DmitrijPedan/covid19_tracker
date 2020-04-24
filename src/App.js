@@ -1,8 +1,16 @@
 import React from 'react';
+import {Header, Card, CountrySelect, Chart, Table} from './components';
+import styles from './App.module.css';
 
 const App = () => {
     return (
-        <div>App</div>
+        <div className={styles.container}>
+            <Header />
+            <Card />
+            <CountrySelect />
+            <Chart />
+            <Table />
+        </div>
     )
 }
 
