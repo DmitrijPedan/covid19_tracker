@@ -45,9 +45,6 @@ const Chart = ({countryData, country}) => {
         ) : null
       );
 
-      console.log(countryData);
-      
-    
       const barChart = (
         countryData ? (
           <Bar
@@ -70,7 +67,7 @@ const Chart = ({countryData, country}) => {
 
     return (
         <div className = {styles.container}>
-            {country && country != 'Global' ? barChart : lineChart}
+            {country && country !== 'Global' ? barChart : lineChart}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { MATHDRO_URL } from '../config/urlConstants';
 
 export const fetchCovidData = async (selectedCountry) => {
-    let modifiedUrl = selectedCountry && selectedCountry != 'Global' 
+    let modifiedUrl = selectedCountry && selectedCountry !== 'Global' 
         ? `${MATHDRO_URL}/countries/${selectedCountry}` 
         : MATHDRO_URL;
     try {
