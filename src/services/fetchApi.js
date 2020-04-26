@@ -8,7 +8,8 @@ export const fetchCovidData = async (selectedCountry) => {
         const response = await fetch(modifiedUrl);
         const data = await response.json();
         const modifiedData = {
-            total : [
+            status: response.status,
+            data : [
                 {titleEn: 'confirmed', titleRu: 'Инфицировано', value: data.confirmed.value, lastUpdate: data.lastUpdate},
                 {titleEn: 'recovered', titleRu: 'Выздоровевших', value: data.recovered.value, lastUpdate: data.lastUpdate},
                 {titleEn: 'deaths', titleRu: 'Умерших', value: data.deaths.value, lastUpdate: data.lastUpdate},
@@ -17,6 +18,7 @@ export const fetchCovidData = async (selectedCountry) => {
         return modifiedData;
     } catch (error) {
         console.log(error);
+        return null;
     }
 };
 

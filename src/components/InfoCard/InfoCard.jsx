@@ -3,11 +3,11 @@ import {Card, CardContent, Typography, Grid, Container} from '@material-ui/core'
 import CountUp from 'react-countup';
 import styles from './InfoCard.module.scss';
 
-const InfoCard = ({total}) => { 
+const InfoCard = ({data}) => { 
     return (
         <Container>
             <Grid container spacing = {3} justify = "center"> 
-            {total.map((el, i) => (
+            {data.map((el, i) => (
                 <Grid key = {i} item component = {Card} xs = {12} md = {3} className = {styles[el.titleEn]}>
                     <CardContent>
                         <Typography color = "textSecondary" variant = "h6" gutterBottom>{el.titleRu}</Typography> 
