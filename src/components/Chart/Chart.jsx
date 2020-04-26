@@ -36,8 +36,7 @@ const Chart = () => {
                 borderColor: 'rgb(230, 14, 14)',
                 backgroundColor: 'rgba(230, 14, 14, 0.2)',
                 fill: true,
-              },
-              ],
+              }],
             }}
           />
         ) : null

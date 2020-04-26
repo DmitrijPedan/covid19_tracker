@@ -9,6 +9,11 @@ const App = () => {
     document.title = 'COVID-19 | Коронавирус | Инфо';
 
     const [covidData, setCovidData] = useState({});
+    const [selectedCountry, setSelectedCountry] = useState('');
+
+    const handleCountrySelect = async (selectedCountry) => {
+        setCovidData(await fetchCovidData(selectedCountry));
+    }
 
     useEffect(() => {
         const fetchData = async () => setCovidData(await fetchCovidData());
@@ -18,7 +23,7 @@ const App = () => {
     return (
         <div className={styles.container}>
             <Header />
-            <CountrySelect />
+            <CountrySelect handleCountrySelect = {handleCountrySelect}/>
             <InfoCard total = {covidData.total}/>
             <Chart />
             {/* <Table /> */}
