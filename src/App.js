@@ -13,6 +13,7 @@ const App = () => {
 
     const handleCountrySelect = async (selectedCountry) => {
         setCovidData(await fetchCovidData(selectedCountry));
+        setSelectedCountry(selectedCountry);
     }
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const App = () => {
             <Header />
             <CountrySelect handleCountrySelect = {handleCountrySelect}/>
             <InfoCard total = {covidData.total}/>
-            <Chart />
+            <Chart countryData = {covidData.total} country = {selectedCountry}/>
             {/* <Table /> */}
         </div>
     )

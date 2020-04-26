@@ -7,7 +7,6 @@ export const fetchCovidData = async (selectedCountry) => {
     try {
         const response = await fetch(modifiedUrl);
         const data = await response.json();
-        console.log('data', data)
         const modifiedData = {
             total : [
                 {titleEn: 'confirmed', titleRu: 'Инфицировано', value: data.confirmed.value, lastUpdate: data.lastUpdate},

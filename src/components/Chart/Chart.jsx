@@ -1,26 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import {fetchDayData} from '../../services/fetchApi';
-import {Line} from 'react-chartjs-2';
-import styles from './Chart.module.scss'
+import {Line, Bar} from 'react-chartjs-2';
+import styles from './Chart.module.scss';
 
-const Chart = () => {
+const Chart = ({countryData, country}) => {
 
-    const [dayData, setDayData] = useState([]);
+    const [globalData, setGlobalData] = useState([]);
 
     useEffect (() => {
         const fetchData = async () => {
-            setDayData(await fetchDayData())
+          setGlobalData(await fetchDayData())
         };
         fetchData();
     }, []);
 
     const lineChart = (
-        dayData.length ? (
+        globalData.length ? (
           <Line
             data={{
-              labels: dayData.map((el) => el.date),
+              labels: globalData.map((el) => el.date),
               datasets: [{
-                data: dayData.map((el) => el.confirmed),
+                data: globalData.map((el) => el.confirmed),
                 label: 'Инфицировано',
                 borderWidth: 1,
                 pointRadius: 2,
@@ -29,7 +29,7 @@ const Chart = () => {
                 backgroundColor: 'rgba(44, 173, 248, 0.2)',
                 fill: true,
               },{
-                data: dayData.map((el) => el.deaths),
+                data: globalData.map((el) => el.deaths),
                 label: 'Умерших',
                 borderWidth: 1,
                 pointRadius: 2,
@@ -38,13 +38,39 @@ const Chart = () => {
                 fill: true,
               }],
             }}
+            options={{
+              title: { display: true, text: `Информация о COVID-19 по всем странам` },
+            }}
+          />
+        ) : null
+      );
+
+      console.log(countryData);
+      
+    
+      const barChart = (
+        countryData ? (
+          <Bar
+            data={{
+              labels: countryData.map(el => el.titleRu),
+              datasets: [{
+                data: countryData.map(el => el.value),
+                label: 'Человек',
+                backgroundColor: ['rgb(44, 173, 248)', 'rgb(50, 155, 64)', 'rgb(230, 14, 14)'],
+                fill: true,
+              }],
+            }}
+            options={{
+              legend: { display: false },
+              title: { display: true, text: `Информация по COVID-19 в ${country}` },
+            }}
           />
         ) : null
       );
 
     return (
         <div className = {styles.container}>
-            {lineChart}
+            {country && country != 'Global' ? barChart : lineChart}
         </div>
     )
 }
