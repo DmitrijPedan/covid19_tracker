@@ -14,16 +14,13 @@ const App = () => {
         const fetchData = async () => setCovidData(await fetchCovidData());
         fetchData();
     },[]);
-
-    // console.log(covidData);
-    
     
     return (
         <div className={styles.container}>
             <Header />
+            <CountrySelect />
             <InfoCard total = {covidData.total}/>
-            {/* <CountrySelect />
-            <Chart />
+            {/* <Chart />
             <Table /> */}
         </div>
     )
