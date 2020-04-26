@@ -6,6 +6,8 @@ import styles from './App.module.scss';
 
 const App = () => {
 
+    document.title = 'COVID-19 | Коронавирус | Инфо';
+
     const [covidData, setCovidData] = useState({});
 
     useEffect(() => {
@@ -18,7 +20,7 @@ const App = () => {
     
     return (
         <div className={styles.container}>
-            {/* <Header /> */}
+            <Header />
             <InfoCard total = {covidData.total}/>
             {/* <CountrySelect />
             <Chart />
