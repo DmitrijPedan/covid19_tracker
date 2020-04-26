@@ -15,5 +15,19 @@ export const fetchCovidData = async () => {
     } catch (error) {
         console.log(error);
     }
+};
 
-}
+export const fetchDayData = async () => {
+    try {
+        const response = await fetch(`${MATHDRO_URL}/daily`);
+        const data = await response.json();
+        const modifiedData = data.map((el) => ({
+            confirmed: el.confirmed.total,
+            deaths: el.deaths.total,
+            date: el.reportDate,
+        }));
+        return modifiedData;
+    } catch (error) {
+        console.log(error);
+    }
+};

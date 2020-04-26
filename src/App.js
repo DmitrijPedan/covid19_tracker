@@ -20,8 +20,8 @@ const App = () => {
             <Header />
             <CountrySelect />
             <InfoCard total = {covidData.total}/>
-            {/* <Chart />
-            <Table /> */}
+            <Chart />
+            {/* <Table /> */}
         </div>
     )
 }

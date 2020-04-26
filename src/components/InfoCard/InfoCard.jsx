@@ -4,7 +4,7 @@ import CountUp from 'react-countup';
 import styles from './InfoCard.module.scss';
 
 const InfoCard = ({total}) => {
-    console.log(total);
+
     if (!total) {
         return <p>loading...</p>
     } else {
