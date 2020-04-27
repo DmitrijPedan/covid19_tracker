@@ -23,7 +23,7 @@ const CountrySelect = ({handleCountrySelect}) => {
                     defaultValue="Global" 
                     onChange = {(event) => handleCountrySelect(event.target.value)}>
                         <option value="Global">Все страны</option>
-                        {countries.map((el, i) => <option key={i} value={el.name}>{el.name}</option>)}
+                        {countries.map((el, i) => el.nameRus && <option key={i} value={el.name}>{el.nameRus}</option>)}
                 </NativeSelect>
                 <FormHelperText>Посмотреть статистику по отдельно взятой стране</FormHelperText>
             </FormControl>

@@ -59,7 +59,7 @@ const Chart = ({countryData, country}) => {
             }}
             options={{
               legend: { display: false },
-              title: { display: true, text: `Информация по COVID-19 в ${country}` },
+              title: { display: true, text: `Информация о COVID-19 в выбранной стране` },
             }}
           />
         ) : null

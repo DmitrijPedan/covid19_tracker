@@ -39,9 +39,15 @@ export const fetchDayData = async () => {
 
 export const fetchCountriesData = async () => {
     try {
-        const response = await fetch(`${MATHDRO_URL}/countries`);
-        const data = await response.json();
-        return data.countries;
+        const allCountriesResponse = await fetch(`${MATHDRO_URL}/countries`);
+        const {countries} = await allCountriesResponse.json();
+        const rusNamesResponse = await fetch(`https://dmitrijpedan.github.io/covid19_tracker/countries.json`);
+        const {countryList: {country}} = await rusNamesResponse.json();
+        const modifiedData = countries.map(elem => {
+            let result = country.find(el => elem.iso3 === el.alpha3);
+            return result ? {...elem, nameRus:result.name} : elem;
+        })   
+        return modifiedData.sort((a, b) => (a.nameRus > b.nameRus) ? 1 : (a.nameRus < b.nameRus) ? -1 : 0);;
     } catch (error) {
         console.log(error);
     }
