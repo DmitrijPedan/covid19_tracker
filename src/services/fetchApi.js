@@ -1,4 +1,4 @@
-import { MATHDRO_URL } from '../config/urlConstants';
+import { MATHDRO_URL, RUS_COUNTRIES_URL } from '../config/urlConstants';
 
 export const fetchCovidData = async (selectedCountry) => {
     let modifiedUrl = selectedCountry && selectedCountry !== 'Global' 
@@ -41,7 +41,7 @@ export const fetchCountriesData = async () => {
     try {
         const allCountriesResponse = await fetch(`${MATHDRO_URL}/countries`);
         const {countries} = await allCountriesResponse.json();
-        const rusNamesResponse = await fetch(`https://dmitrijpedan.github.io/covid19_tracker/countries.json`);
+        const rusNamesResponse = await fetch(RUS_COUNTRIES_URL);
         const {countryList: {country}} = await rusNamesResponse.json();
         const modifiedData = countries.map(elem => {
             let result = country.find(el => elem.iso3 === el.alpha3);
