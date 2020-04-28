@@ -2,6 +2,8 @@ import React from 'react';
 import {AppBar, Toolbar, Grid, IconButton, Container, FormControlLabel, Switch, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
 import styles from './Header.module.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     title: {flexGrow: 1},
   }));
 
-const Header = ({handlerChangeTheme}) => {
+const Header = ({handlerChangeTheme, themeApp}) => {
 
     const classes = useStyles();
       
@@ -22,7 +24,10 @@ const Header = ({handlerChangeTheme}) => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>Меню</Typography>
-                <FormControlLabel control={<Switch onChange={handlerChangeTheme} color="secondary"/>} label="Темная тема" />
+                <FormControlLabel control={
+                    <Switch onChange={handlerChangeTheme} color="secondary"/>
+                    } />
+                    {themeApp === 'dark' ? (<Brightness3Icon/>):(<WbSunnyIcon/>)}
             </Toolbar>
         </AppBar>
         <Container className = {styles.container}>

@@ -28,15 +28,13 @@ const App = () => {
         setSelectedCountry(selectedCountry);
     };
 
-    
-    
     if (!covidData) {
         return <Loader />
     } else {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Header handlerChangeTheme = {handlerChangeTheme}/>
+                <Header handlerChangeTheme = {handlerChangeTheme} themeApp = {themeApp}/>
                 <CountrySelect handleCountrySelect = {handleCountrySelect}/>
                 <InfoCard data = {covidData.data}/>
                 <Chart countryData = {covidData.data} country = {selectedCountry}/>
