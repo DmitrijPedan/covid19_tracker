@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     title: {flexGrow: 1},
   }));
 
-const Header = ({changeTheme}) => {
+const Header = ({handlerChangeTheme}) => {
 
     const classes = useStyles();
       
@@ -22,7 +22,7 @@ const Header = ({changeTheme}) => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>Меню</Typography>
-                <FormControlLabel control={<Switch onChange={changeTheme} color="success"/>} label="Тема" />
+                <FormControlLabel control={<Switch onChange={handlerChangeTheme} color="secondary"/>} label="Темная тема" />
             </Toolbar>
         </AppBar>
         <Container className = {styles.container}>

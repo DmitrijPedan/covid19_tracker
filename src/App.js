@@ -1,36 +1,31 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {fetchCovidData} from './services/fetchApi';
 import {Loader, Header, InfoCard, CountrySelect, Chart, Table} from './components';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App = () => {
-    
-    const [state, setState] = useState({
-        themePalette: 'light',
-        covidData: null,
-        selectedCountry: '',
-    });
 
-    const {themePalette, covidData, selectedCountry} = state;
-           
-    const theme = useMemo(() => createMuiTheme({
-        palette: {type:  themePalette},
-        })
-      );
+    const [themeApp, setThemeApp] = useState('light');
+    const [covidData, setCovidData] = useState(null);
+    const [selectedCountry, setSelectedCountry] = useState('');
+    
+    const theme = createMuiTheme({
+        palette: {type:  themeApp},
+        });
 
     useEffect(() => {
         (async () => {
             const fetchedData = await fetchCovidData();
-            fetchedData && setState({...state, covidData: fetchedData});
+            fetchedData && setCovidData(fetchedData);
         })();
-    },[]);
+    }, []);
 
-    const changeTheme = () => setState({...state, themePalette: themePalette === 'dark' ? 'light' : 'dark'});
+    const handlerChangeTheme = () => setThemeApp(themeApp === 'light' ? 'dark' : 'light');
     
     const handleCountrySelect = async (selectedCountry) => {
-        setState({...state, covidData: await fetchCovidData(selectedCountry), selectedCountry});
+        setCovidData(await fetchCovidData(selectedCountry));
+        setSelectedCountry(selectedCountry);
     };
 
     
@@ -41,7 +36,7 @@ const App = () => {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Header changeTheme = {changeTheme}/>
+                <Header handlerChangeTheme = {handlerChangeTheme}/>
                 <CountrySelect handleCountrySelect = {handleCountrySelect}/>
                 <InfoCard data = {covidData.data}/>
                 <Chart countryData = {covidData.data} country = {selectedCountry}/>
