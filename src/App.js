@@ -2,7 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 import {fetchCovidData} from './services/fetchApi';
 import {Loader, Header, InfoCard, CountrySelect, Chart, Table} from './components';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {FormControlLabel, Switch} from '@material-ui/core';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App = () => {
@@ -12,65 +12,39 @@ const App = () => {
         covidData: null,
         selectedCountry: '',
     });
-   
-        
+
+    const {themePalette, covidData, selectedCountry} = state;
+           
     const theme = useMemo(() => createMuiTheme({
-        palette: {
-            type:  state.themePalette,
-        },
+        palette: {type:  themePalette},
         })
       );
 
     useEffect(() => {
-        const fetchData = async () => {
+        (async () => {
             const fetchedData = await fetchCovidData();
-            if (fetchedData) {
-                setState({...state, covidData: fetchedData});
-            };
-        } 
-        fetchData();
+            fetchedData && setState({...state, covidData: fetchedData});
+        })();
     },[]);
 
+    const changeTheme = () => setState({...state, themePalette: themePalette === 'dark' ? 'light' : 'dark'});
+    
     const handleCountrySelect = async (selectedCountry) => {
-        setState({
-            ...state, 
-            covidData: await fetchCovidData(selectedCountry), 
-            selectedCountry
-        })
-    }
+        setState({...state, covidData: await fetchCovidData(selectedCountry), selectedCountry});
+    };
 
-    const changeTheme = () => {
-        if(state.themePalette === 'dark') {
-            setState({
-                ...state,
-                themePalette: 'light'
-            })
-        } else {
-            setState({
-                ...state,
-                themePalette: 'dark'
-            })
-        }
-        
-    }
-
-    if (!state.covidData) {
+    
+    
+    if (!covidData) {
         return <Loader />
     } else {
         return (
             <ThemeProvider theme={theme}>
-                     <FormControlLabel
-                        control={
-                        <Switch onChange={changeTheme} color="secondary"/>
-                        }
-                        label="Темная тема"
-                    />
-               
                 <CssBaseline />
-                <Header />
+                <Header changeTheme = {changeTheme}/>
                 <CountrySelect handleCountrySelect = {handleCountrySelect}/>
-                <InfoCard data = {state.covidData.data}/>
-                <Chart countryData = {state.covidData.data} country = {state.selectedCountry}/>
+                <InfoCard data = {covidData.data}/>
+                <Chart countryData = {covidData.data} country = {selectedCountry}/>
                 <Table />
             </ThemeProvider>
         )
