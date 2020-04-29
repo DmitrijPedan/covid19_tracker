@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Loader from '../Loader/Loader';
-import {columns, createRows} from '../../config/tableConfigs';
+import {columns, createRows, tableStyles} from '../../config/tableConfigs';
 import {fetchTableData} from '../../services/fetchApi';
 
 import {Grid, Container} from '@material-ui/core';
@@ -15,26 +15,19 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import styles from './infoTable.module.scss';
 
-const useStyles = makeStyles({
-    root: {
-      width: '100%',
-    },
-    container: {
-      maxHeight: 440,
-    },
-  });
+const useStyles = makeStyles(tableStyles);
 
 const InfoTable = () => {
 
     const classes = useStyles();
    
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [data, setData] = useState(null);
+    const [rowsPerPage, setRowsPerPage] = useState(25);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         (async () => setData(await fetchTableData()))();       
-    });
+    },[]);
  
     const handleChangePage = (event, newPage) => setPage(newPage);
     
@@ -44,7 +37,7 @@ const InfoTable = () => {
     };
 
     const table = (
-        data ?
+        data.length ?
         (<Paper className={classes.root}>
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">

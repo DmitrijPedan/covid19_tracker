@@ -20,10 +20,10 @@ const Header = ({handlerChangeTheme, themeApp}) => {
         <header>
         <AppBar position="sticky" color = "default">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} aria-label="menu">
+                {/* <IconButton edge="start" className={classes.menuButton} aria-label="menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>Меню</Typography>
+                <Typography variant="h6" className={classes.title}>Меню</Typography> */}
                 <FormControlLabel control={
                     <Switch onChange={handlerChangeTheme} color="secondary"/>
                     } />

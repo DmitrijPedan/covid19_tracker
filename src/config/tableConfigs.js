@@ -3,11 +3,20 @@ export const createRows = (arr) => {
     )
 };
 
+export const tableStyles = {
+    root: {
+      width: '100%',
+    },
+    container: {
+      height: '100%',
+    },
+}
+
 export const columns = [
     {
       id: 'nameRus', 
       label: 'Страна', 
-      minWidth: 170 
+      minWidth: 120 
     },
     {
       id: 'iso3', 
@@ -24,28 +33,28 @@ export const columns = [
     {
       id: 'confirmed', 
       label: 'Подтверждено',
-      minWidth: 170,
+      minWidth: 120,
       align: 'right',
       format: (value) => value.toLocaleString(),
     },
     {
       id: 'recovered', 
       label: 'Выздоровевших',
-      minWidth: 170,
+      minWidth: 120,
       align: 'right',
       format: (value) => value.toLocaleString(),
     },
     {
       id: 'deaths', 
       label: 'Умерших',
-      minWidth: 170,
+      minWidth: 120,
       align: 'right',
       format: (value) => value.toLocaleString(),
     },
     {
       id: 'deathsPersent', 
       label: 'Смертность',
-      minWidth: 170,
+      minWidth: 120,
       align: 'right',
       format: (value) => value.toLocaleString(),
     },
