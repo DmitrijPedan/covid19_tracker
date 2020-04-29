@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {fetchCovidData} from './services/fetchApi';
-import {Loader, Header, InfoCard, CountrySelect, Chart, Table} from './components';
+import {Loader, Header, InfoCard, CountrySelect, Chart, InfoTable} from './components';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -35,10 +35,10 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header handlerChangeTheme = {handlerChangeTheme} themeApp = {themeApp}/>
-                <CountrySelect handleCountrySelect = {handleCountrySelect}/>
+                {/* <CountrySelect handleCountrySelect = {handleCountrySelect}/>
                 <InfoCard data = {covidData.data}/>
-                <Chart countryData = {covidData.data} country = {selectedCountry}/>
-                <Table />
+                <Chart countryData = {covidData.data} country = {selectedCountry}/> */}
+                <InfoTable />
             </ThemeProvider>
         )
     }
