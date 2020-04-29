@@ -15,7 +15,7 @@ const CountrySelect = ({handleCountrySelect}) => {
     }, []);
 
     return (
-        <Grid container spacing = {1} justify = "center" className = {styles.country}> 
+        <div className = {styles.container}> 
             <FormControl>
                 <InputLabel htmlFor="country-label">Страна</InputLabel>
                 <NativeSelect 
@@ -27,7 +27,7 @@ const CountrySelect = ({handleCountrySelect}) => {
                 </NativeSelect>
                 <FormHelperText>Посмотреть статистику по отдельно взятой стране</FormHelperText>
             </FormControl>
-      </Grid>
+      </div>
     )
 }
 
