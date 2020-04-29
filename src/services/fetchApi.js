@@ -48,19 +48,17 @@ export const fetchCountriesData = async () => {
         const restCountryResponse = await fetch(RESTCOUNTRIES_URL);
         const restCountries = await restCountryResponse.json();
 
-        const dataWithRusName = countries.map(elem => {
-            let result = country.find(el => elem.iso3 === el.alpha3);
-            return result ? {...elem, nameRus:result.name} : elem;
-        })   
-
-        const fullData = dataWithRusName.map(elem => {
-            let result = restCountries.find(el => elem.iso3 === el.alpha3Code);
-            return result ? {...elem, population: result.population, flag: result.flag} : null;
-        })  
-
-        let result = fullData.filter(el => el && el.name !== 'Gambia');
-
-            return result.sort((a, b) => (a.nameRus > b.nameRus) ? 1 : (a.nameRus < b.nameRus) ? -1 : 0);
+        return countries
+                .map(elem => {
+                    let result = country.find(el => elem.iso3 === el.alpha3);
+                    return result ? {...elem, nameRus:result.name} : elem;
+                })
+                .map(elem => {
+                    let result = restCountries.find(el => elem.iso3 === el.alpha3Code);
+                    return result ? {...elem, population: result.population, flag: result.flag} : null;
+                })
+                .filter(el => el && el.name !== 'Gambia')
+                .sort((a, b) => (a.nameRus > b.nameRus) ? 1 : (a.nameRus < b.nameRus) ? -1 : 0);
 
     } catch (error) {
         console.log(error);
@@ -86,5 +84,3 @@ export const fetchTableData = async () => {
         console.log(error);
     }
 };
-
-//alpha3Code, flag, population
