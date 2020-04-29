@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Loader from '../Loader/Loader';
 import {columns, createRows} from '../../config/tableConfigs';
 import {fetchTableData} from '../../services/fetchApi';
 
@@ -29,7 +30,7 @@ const InfoTable = () => {
    
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
     useEffect(() => {
         (async () => setData(await fetchTableData()))();       
@@ -42,53 +43,58 @@ const InfoTable = () => {
         setPage(0);
     };
 
+    const table = (
+        data ?
+        (<Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+                <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                    <TableRow>
+                    {columns.map((column, i) => (
+                        <TableCell
+                        key={'tableCell' + i}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                        >
+                        {column.label}
+                        </TableCell>
+                    ))}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {createRows(data).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => {
+                    return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={'tableRow' + i}>
+                        {columns.map((column, i) => {
+                            const value = row[column.id];
+                            return (
+                            <TableCell key={i} align={column.align}>
+                                {column.format && typeof value === 'number' ? column.format(value) : value}
+                            </TableCell>
+                            );
+                        })}
+                        </TableRow>
+                    );
+                    })}
+                </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+            </Paper>) : null
+    );
+
     return (
         <Container className = {styles.container}>
             <Grid container spacing = {1} justify = "center" direction = "column" alignItems = "center">
-              <Paper className={classes.root}>
-                <TableContainer className={classes.container}>
-                  <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                        {columns.map((column, i) => (
-                            <TableCell
-                            key={'tableCell' + i}
-                            align={column.align}
-                            style={{ minWidth: column.minWidth }}
-                            >
-                            {column.label}
-                            </TableCell>
-                        ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {createRows(data).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => {
-                        return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={'tableRow' + i}>
-                            {columns.map((column, i) => {
-                                const value = row[column.id];
-                                return (
-                                <TableCell key={i} align={column.align}>
-                                    {column.format && typeof value === 'number' ? column.format(value) : value}
-                                </TableCell>
-                                );
-                            })}
-                            </TableRow>
-                        );
-                        })}
-                    </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-              </Paper>
+              {data ? table : (<Loader />)}
           </Grid>
         </Container>
     )

@@ -52,7 +52,7 @@ const Chart = ({countryData, country}) => {
               labels: countryData.map(el => el.titleRu),
               datasets: [{
                 data: countryData.map(el => el.value),
-                label: 'Человек',
+                label: 'Жителей',
                 backgroundColor: ['rgb(44, 173, 248)', 'rgb(50, 155, 64)', 'rgb(230, 14, 14)'],
                 fill: true,
               }],

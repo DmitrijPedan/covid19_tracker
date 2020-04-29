@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Grid, InputLabel, FormHelperText, FormControl, NativeSelect} from '@material-ui/core';
+import {InputLabel, FormHelperText, FormControl, NativeSelect} from '@material-ui/core';
 import {fetchCountriesData} from '../../services/fetchApi';
 import styles from './CountrySelect.module.scss';
 
