@@ -45,11 +45,11 @@ const InfoTable = () => {
                     <TableRow>
                     {columns.map((column, i) => (
                         <TableCell
-                        key={'tableCell' + i}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}
-                        >
-                        {column.label}
+                            key={'tableCell' + i}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
+                            >
+                            {column.label}
                         </TableCell>
                     ))}
                     </TableRow>
@@ -73,8 +73,11 @@ const InfoTable = () => {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[10, 25, 50, 100]}
                 component="div"
+                labelRowsPerPage="Строк на странице"
+                backIconButtonText='Пред. страница'
+                nextIconButtonText='След. страница'
                 count={data.length}
                 rowsPerPage={rowsPerPage}
                 page={page}

@@ -5,6 +5,9 @@ import * as serviceWorker from './serviceWorker';
 
 document.title = 'COVID-19 Инфо';
 
+console.log(ReactDOM);
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
