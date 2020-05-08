@@ -16,3 +16,8 @@
 ```
 $ make up
 ```
+
+**To start dev-mode:**
+```
+$ make dev
+```
